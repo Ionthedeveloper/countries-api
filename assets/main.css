@@ -1,7 +1,7 @@
 @import "/assets/fonts/fonts.css";
 
 body {
-  font-family: Arial, sans-serif;
+  font-family: "Inter", sans-serif;
   margin: 0;
   display: flex;
 }
@@ -12,7 +12,6 @@ body {
   height: 100vh;
   position: fixed;
   overflow-y: auto;
-  box-shadow: 2px 0px 10px rgba(0, 0, 0, 0.1);
 }
 .content {
   margin-left: 320px;
@@ -29,18 +28,28 @@ label {
   border-bottom: 1px solid #ddd;
   padding-bottom: 5px;
 }
+#populationValue {
+  border: #000 1px solid;
+  padding: 12px 179px 12px 16px;
+  border-radius: 16px;
+  max-width: 309px;
+}
+#populationRange {
+  
+}
 .filter-title {
   font-size: 16px;
-  font-weight: bold;
+  font-weight: 700;
   cursor: pointer;
   padding: 5px;
 }
 .filter-content {
   display: none;
+  font-weight: 400;
   padding: 5px 0;
 }
 .filter-content label {
-  display: block;
+  display: flex;
   font-size: 14px;
   margin: 2px 0;
 }

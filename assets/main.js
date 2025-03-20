@@ -4,87 +4,79 @@ document.addEventListener("DOMContentLoaded", () => {
   titles.forEach(title => {
       title.addEventListener("click", () => {
           const content = title.nextElementSibling;
-
-          if (content.style.display === "block") {
-              content.style.display = "none";
-          } else {
-              content.style.display = "block";
-          }
+          content.style.display = content.style.display === "block" ? "none" : "block";
       });
   });
 });
 
-
 let allCountries = [];
 
-async function fetchCountries() {
+async function fetchCountries() {    
   try {
-    const response = await fetch(
-      "https://restcountries.com/v3.1/all?fields=name,capital,flags,population,region,languages"
-    );
+    const response = await fetch("https://restcountries.com/v3.1/all");
     const data = await response.json();
     allCountries = data;
     displayCountries(allCountries);
   } catch (error) {
-    console.error("Error", error);
+    console.error("Ошибка загрузки стран:", error);
   }
 }
 
-let displayCountries = (countries) => {
+function displayCountries(countries) {
   const container = document.getElementById("countries");
   container.innerHTML = "";
 
-  countries.forEach((country) => {
+  if (countries.length === 0) {
+    container.innerHTML = "<p>Нет результатов</p>";
+    return;
+  }
+
+  countries.forEach(country => {
     const countryElement = document.createElement("div");
     countryElement.classList.add("country");
     countryElement.innerHTML = `
-                      <img src="${country.flags.svg}" alt="${
-      country.name.common
-    }">
-                      <h3>${country.name.common}</h3>
-                      <p>Столица: ${
-                        country.capital ? country.capital[0] : "Нет данных"
-                      }</p>
-                      <p>Население: ${country.population.toLocaleString()}</p>
-                      <p>Континент: ${country.region}</p>
-                  `;
+      <img src="${country.flags.svg}" alt="${country.name.common}">
+      <h3>${country.name.common}</h3>
+      <p>Столица: ${country.capital ? country.capital[0] : "Нет данных"}</p>
+      <p>Население: ${country.population.toLocaleString()}</p>
+      <p>Континент: ${country.region}</p>
+    `;
     container.appendChild(countryElement);
   });
-};
+}
 
-let filterCountries = () => {
+function updatePopulationValue() {
+  const rangeInput = document.getElementById("populationRange");
+  const valueDisplay = document.getElementById("populationValue");
+  valueDisplay.textContent = parseInt(rangeInput.value).toLocaleString();
+}
+
+function filterCountries() {
   const searchValue = document.getElementById("search").value.toLowerCase();
-  const minPopulation =
-    parseInt(document.getElementById("minPopulation").value) || 0;
-  const maxPopulation =
-    parseInt(document.getElementById("maxPopulation").value) || Infinity;
-  const selectedContinent = Array.from(
-    document.querySelectorAll(".continent:checked")
-  ).map((input) => input.value);
-  const selectedGovernments = Array.from(
-    document.querySelectorAll(".government:checked")
-  ).map((input) => input.value);
-  const selectedLanguage = document.querySelector(
-    "input[name='language']:checked"
-  )?.value;
+  const population = parseInt(document.getElementById("populationRange").value);
+  const selectedContinents = Array.from(document.querySelectorAll(".continent:checked")).map(input => input.value);
+  const selectedLanguages = Array.from(document.querySelectorAll(".language:checked")).map(input => input.value);
+  const selectedCurrencies = Array.from(document.querySelectorAll("input[name='currency']:checked")).map(input => input.value);
+  const independence = Array.from(document.querySelectorAll("#independence input:checked")).map(input => input.value);
+  const timezones = Array.from(document.querySelectorAll("#timezone input:checked")).map(input => input.value);
+  const seaAccess = document.querySelector("#sea_access input:checked")?.value;
+  const unMembership = document.querySelector("#un_membership input:checked")?.value;
 
-  const filteredCountries = allCountries.filter((country) => {
-    const name = country.name.common.toLowerCase();
-    const population = country.population;
-    const continent = country.region;
-    const languages = country.languages ? Object.values(country.languages) : [];
+  const filteredCountries = allCountries.filter(country => {
+    const nameMatches = country.name.common.toLowerCase().includes(searchValue);
+    const populationMatches = country.population <= population;
+    const continentMatches = selectedContinents.length === 0 || selectedContinents.includes(country.region);
+    const languageMatches = selectedLanguages.length === 0 || (country.languages && Object.keys(country.languages).some(lang => selectedLanguages.includes(lang)));
+    const currencyMatches = selectedCurrencies.length === 0 || (country.currencies && Object.keys(country.currencies).some(curr => selectedCurrencies.includes(curr)));
+    const independenceMatches = independence.length === 0 || (country.independent !== undefined && independence.includes(country.independent.toString()));
+    const timezoneMatches = timezones.length === 0 || (country.timezones && timezones.includes(country.timezones[0]));
+    const seaAccessMatches = seaAccess === undefined || (country.borders ? "true" : "false") === seaAccess;
+    const unMembershipMatches = unMembership === undefined || (country.unMember !== undefined && country.unMember.toString() === unMembership);
 
-    return (
-      name.includes(searchValue) &&
-      population >= minPopulation &&
-      population <= maxPopulation &&
-      (selectedContinent.length === 0 ||
-        selectedContinent.includes(continent)) &&
-      (!selectedLanguage || languages.includes(selectedLanguage))
-    );
+    return nameMatches && populationMatches && continentMatches && languageMatches && currencyMatches && independenceMatches && timezoneMatches && seaAccessMatches && unMembershipMatches;
   });
 
-  displayCountries(filteredCountries)
-};
+  displayCountries(filteredCountries);
+}
 
-fetchCountries()
+fetchCountries();
