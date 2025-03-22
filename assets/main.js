@@ -22,7 +22,7 @@ async function fetchCountries() {
   }
 }
 
-function displayCountries(countries) {
+let displayCountries = (countries) => {
   const container = document.getElementById("countries");
   container.innerHTML = "";
 
@@ -37,22 +37,23 @@ function displayCountries(countries) {
     countryElement.innerHTML = `
       <img src="${country.flags.svg}" alt="${country.name.common}">
       <h3>${country.name.common}</h3>
+      <p>Регион: ${country.region}</p>
       <p>Столица: ${country.capital ? country.capital[0] : "Нет данных"}</p>
-      <p>Население: ${country.population.toLocaleString()}</p>
-      <p>Континент: ${country.region}</p>
+      <p>Язык: ${country.languages}</p>
+      <button>Подробнее</button>
     `;
     container.appendChild(countryElement);
   });
 }
 
-function updatePopulationValue() {
+let updatePopulationValue = () => {
   const rangeInput = document.getElementById("populationRange");
   const valueDisplay = document.getElementById("populationValue");
   valueDisplay.textContent = parseInt(rangeInput.value).toLocaleString();
 }
 
-function filterCountries() {
-  const searchValue = document.getElementById("search").value.toLowerCase();
+let filterCountries = () => {
+  // const searchValue = document.getElementById("search").value.toLowerCase();
   const population = parseInt(document.getElementById("populationRange").value);
   const selectedContinents = Array.from(document.querySelectorAll(".continent:checked")).map(input => input.value);
   const selectedLanguages = Array.from(document.querySelectorAll(".language:checked")).map(input => input.value);
@@ -63,7 +64,7 @@ function filterCountries() {
   const unMembership = document.querySelector("#un_membership input:checked")?.value;
 
   const filteredCountries = allCountries.filter(country => {
-    const nameMatches = country.name.common.toLowerCase().includes(searchValue);
+    // const nameMatches = country.name.common.toLowerCase().includes(searchValue);
     const populationMatches = country.population <= population;
     const continentMatches = selectedContinents.length === 0 || selectedContinents.includes(country.region);
     const languageMatches = selectedLanguages.length === 0 || (country.languages && Object.keys(country.languages).some(lang => selectedLanguages.includes(lang)));
@@ -73,7 +74,7 @@ function filterCountries() {
     const seaAccessMatches = seaAccess === undefined || (country.borders ? "true" : "false") === seaAccess;
     const unMembershipMatches = unMembership === undefined || (country.unMember !== undefined && country.unMember.toString() === unMembership);
 
-    return nameMatches && populationMatches && continentMatches && languageMatches && currencyMatches && independenceMatches && timezoneMatches && seaAccessMatches && unMembershipMatches;
+    return /*nameMatches*/ populationMatches && continentMatches && languageMatches && currencyMatches && independenceMatches && timezoneMatches && seaAccessMatches && unMembershipMatches;
   });
 
   displayCountries(filteredCountries);
