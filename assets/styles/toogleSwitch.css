@@ -30,7 +30,7 @@
   border-radius: 50%;
   transition: transform 0.3s;
 }
-.input:checked + .slider {
+input:checked + .slider {
   background: #000;
 }
 input:checked + .slider::before {
