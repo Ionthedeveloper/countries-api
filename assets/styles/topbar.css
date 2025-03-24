@@ -1,0 +1,9 @@
+.filter-group-item {
+    margin-left: 64px;
+    margin-bottom: 38px;
+    padding: 16px;
+    border: 1px solid #D2D2D2;
+    border-radius: 16px;
+    width: 100%;
+    max-width: 1099px;
+}

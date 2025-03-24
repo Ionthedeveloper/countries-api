@@ -1,0 +1,38 @@
+.filter-group-toggle {
+  display: flex;
+  justify-content: space-between;
+}
+.switch {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+.switch input {
+  display: none;
+}
+.slider {
+  position: relative;
+  width: 40px;
+  height: 20px;
+  background: #d2d2d2;
+  border-radius: 34px;
+  transition: background 0.3s;
+}
+.slider::before {
+  content: "";
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  left: 2px;
+  bottom: 1px;
+  background: white;
+  border-radius: 50%;
+  transition: transform 0.3s;
+}
+.input:checked + .slider {
+  background: #000;
+}
+input:checked + .slider::before {
+  transform: translateX(20px);
+}

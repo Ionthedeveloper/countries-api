@@ -1,0 +1,20 @@
+@import "/assets/fonts/fonts.css";
+
+* {
+  margin: 0;
+  padding: 0;
+  border: none;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Inter", sans-serif;
+}
+
+.container {
+  width: 100%;
+  max-width: 1536px;
+  margin-top: 42px;
+
+  display: flex;
+}
