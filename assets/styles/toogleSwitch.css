@@ -13,8 +13,8 @@
 }
 .slider {
   position: relative;
-  width: 40px;
-  height: 20px;
+  width: 42px;
+  height: 25px;
   background: #d2d2d2;
   border-radius: 34px;
   transition: background 0.3s;
@@ -22,10 +22,10 @@
 .slider::before {
   content: "";
   position: absolute;
-  width: 18px;
-  height: 18px;
-  left: 2px;
+  width: 23px;
+  height: 23px;
   bottom: 1px;
+  left: -1px;
   background: white;
   border-radius: 50%;
   transition: transform 0.3s;
