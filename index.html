@@ -8,272 +8,266 @@
     <link rel="stylesheet" href="/assets/styles/countries.css" />
     <link rel="stylesheet" href="/assets/styles/topbar.css" />
     <link rel="stylesheet" href="/assets/styles/toogleSwitch.css" />
+    <link rel="stylesheet" href="/assets/styles/mediarequest.css" />
     <title>Countries API</title>
   </head>
   <body>
     <div class="container">
-      <div class="sidebar">
-        <div class="filter-group" id="population">
-          <h3>Население</h3>
-          <input
-            type="range"
-            id="populationRange"
-            min="0"
-            max="1400000000"
-            step="100000"
-            value="500000000"
-            oninput="updatePopulationValue()"
-          />
-          <span id="populationValue">1000000</span>
-        </div>
-
-        <div class="filter-group">
-          <h3 class="filter-title">
-            Континент<img src="/assets/img/down-arrow.png" />
-          </h3>
-          <div class="filter-content" id="continent">
-            <label
-              ><input
-                type="checkbox"
-                class="continent box-margin"
-                value="Europe"
-                onchange="filterCountries()"
-              />
-              Европа</label
-            >
-            <label
-              ><input
-                type="checkbox"
-                class="continent box-margin"
-                value="Asia"
-                onchange="filterCountries()"
-              />
-              Азия</label
-            >
-            <label
-              ><input
-                type="checkbox"
-                class="continent box-margin"
-                value="Africa"
-                onchange="filterCountries()"
-              />
-              Африка</label
-            >
-            <label
-              ><input
-                type="checkbox"
-                class="continent box-margin"
-                value="Americas"
-                onchange="filterCountries()"
-              />
-              Америка</label
-            >
-            <!-- <label
-            ><input
-              type="checkbox"
-              class="continent"
-              value="Antarctica"
-              onchange="filterCountries()"
-            />
-            Антарктида</label
-          > -->
-          </div>
-        </div>
-
-        <div class="filter-group">
-          <h3 class="filter-title">
-            Язык<img src="/assets/img/down-arrow.png" />
-          </h3>
-          <div class="filter-content" id="language">
-            <label
-              ><input
-                type="checkbox"
-                class="language box-margin"
-                value="eng"
-                onchange="filterCountries()"
-              />
-              Английский</label
-            >
-            <label
-              ><input
-                type="checkbox"
-                class="language box-margin"
-                value="spa"
-                onchange="filterCountries()"
-              />
-              Испанский</label
-            >
-            <label
-              ><input
-                type="checkbox"
-                class="language box-margin"
-                value="fra"
-                onchange="filterCountries()"
-              />
-              Французский</label
-            >
-            <label
-              ><input
-                type="checkbox"
-                class="language box-margin"
-                value="rus"
-                onchange="filterCountries()"
-              />
-              Русский</label
-            >
-          </div>
-        </div>
-
-        <div class="filter-group">
-          <h3 class="filter-title">
-            Валюта<img src="/assets/img/down-arrow.png" />
-          </h3>
-          <div class="filter-content" id="currency">
-            <label
-              ><input
-                type="radio"
-                class="box-margin"
-                name="currency"
-                value="EUR"
-                onchange="filterCountries()"
-              />Евро</label
-            >
-            <label
-              ><input
-                type="radio"
-                class="box-margin"
-                name="currency"
-                value="USD"
-                onchange="filterCountries()"
-              />Доллар</label
-            >
-            <label
-              ><input
-                type="radio"
-                class="box-margin"
-                name="currency"
-                value="RUB"
-                onchange="filterCountries()"
-              />Рубль</label
-            >
-          </div>
-        </div>
-
-        <div class="filter-group">
-          <h3 class="filter-title">
-            Независимость<img src="/assets/img/down-arrow.png" />
-          </h3>
-          <div class="filter-content" id="independence">
-            <label
-              ><input
-                type="checkbox"
-                class="box-margin"
-                value="true"
-                onchange="filterCountries()"
-              />
-              Независимые</label
-            >
-            <label
-              ><input
-                type="checkbox"
-                class="box-margin"
-                value="false"
-                onchange="filterCountries()"
-              />
-              Зависимые</label
-            >
-          </div>
-        </div>
-
-        <div class="filter-group">
-          <h3 class="filter-title">
-            Часовой пояс<img src="/assets/img/down-arrow.png" />
-          </h3>
-          <div class="filter-content" id="timezone">
-            <label
-              ><input
-                type="checkbox"
-                class="box-margin"
-                value="UTC-12:00"
-                onchange="filterCountries()"
-              />
-              UTC-12</label
-            >
-            <label
-              ><input
-                type="checkbox"
-                class="box-margin"
-                value="UTC-06:00"
-                onchange="filterCountries()"
-              />
-              UTC-6</label
-            >
-            <label
-              ><input
-                type="checkbox"
-                class="box-margin"
-                value="UTC+00:00"
-                onchange="filterCountries()"
-              />
-              UTC+0</label
-            >
-            <label
-              ><input
-                type="checkbox"
-                class="box-margin"
-                value="UTC+03:00"
-                onchange="filterCountries()"
-              />
-              UTC+3</label
-            >
-            <label
-              ><input
-                type="checkbox"
-                class="box-margin"
-                value="UTC+09:00"
-                onchange="filterCountries()"
-              />
-              UTC+9</label
-            >
-          </div>
-        </div>
-
-        <div class="filter-group filter-group-toggle">
-          <h3 class="filter-title">Членство в ООН</h3>
-          <label class="switch">
+      <div class="main-content">
+        <div class="sidebar">
+          <div class="filter-group" id="population">
+            <h3>Население</h3>
             <input
-              type="checkbox"
-              id="un_membership"
-              onchange="filterCountries()"
+              type="range"
+              id="populationRange"
+              min="0"
+              max="1400000000"
+              step="100000"
+              value="500000000"
+              oninput="updatePopulationValue()"
             />
-            <span class="slider"></span>
-          </label>
+            <span id="populationValue">1000000</span>
+          </div>
+
+          <div class="filter-group">
+            <h3 class="filter-title">
+              Континент<img src="/assets/img/down-arrow.png" />
+            </h3>
+            <div class="filter-content" id="continent">
+              <label
+                ><input
+                  type="checkbox"
+                  class="continent box-margin"
+                  value="Europe"
+                  onchange="filterCountries()"
+                />
+                Европа</label
+              >
+              <label
+                ><input
+                  type="checkbox"
+                  class="continent box-margin"
+                  value="Asia"
+                  onchange="filterCountries()"
+                />
+                Азия</label
+              >
+              <label
+                ><input
+                  type="checkbox"
+                  class="continent box-margin"
+                  value="Africa"
+                  onchange="filterCountries()"
+                />
+                Африка</label
+              >
+              <label
+                ><input
+                  type="checkbox"
+                  class="continent box-margin"
+                  value="Americas"
+                  onchange="filterCountries()"
+                />
+                Америка</label
+              >
+            </div>
+          </div>
+
+          <div class="filter-group">
+            <h3 class="filter-title">
+              Язык<img src="/assets/img/down-arrow.png" />
+            </h3>
+            <div class="filter-content" id="language">
+              <label
+                ><input
+                  type="checkbox"
+                  class="language box-margin"
+                  value="eng"
+                  onchange="filterCountries()"
+                />
+                Английский</label
+              >
+              <label
+                ><input
+                  type="checkbox"
+                  class="language box-margin"
+                  value="spa"
+                  onchange="filterCountries()"
+                />
+                Испанский</label
+              >
+              <label
+                ><input
+                  type="checkbox"
+                  class="language box-margin"
+                  value="fra"
+                  onchange="filterCountries()"
+                />
+                Французский</label
+              >
+              <label
+                ><input
+                  type="checkbox"
+                  class="language box-margin"
+                  value="rus"
+                  onchange="filterCountries()"
+                />
+                Русский</label
+              >
+            </div>
+          </div>
+
+          <div class="filter-group">
+            <h3 class="filter-title">
+              Валюта<img src="/assets/img/down-arrow.png" />
+            </h3>
+            <div class="filter-content" id="currency">
+              <label
+                ><input
+                  type="radio"
+                  class="box-margin"
+                  name="currency"
+                  value="EUR"
+                  onchange="filterCountries()"
+                />Евро</label
+              >
+              <label
+                ><input
+                  type="radio"
+                  class="box-margin"
+                  name="currency"
+                  value="USD"
+                  onchange="filterCountries()"
+                />Доллар</label
+              >
+              <label
+                ><input
+                  type="radio"
+                  class="box-margin"
+                  name="currency"
+                  value="RUB"
+                  onchange="filterCountries()"
+                />Рубль</label
+              >
+            </div>
+          </div>
+
+          <div class="filter-group">
+            <h3 class="filter-title">
+              Независимость<img src="/assets/img/down-arrow.png" />
+            </h3>
+            <div class="filter-content" id="independence">
+              <label
+                ><input
+                  type="checkbox"
+                  class="box-margin"
+                  value="true"
+                  onchange="filterCountries()"
+                />
+                Независимые</label
+              >
+              <label
+                ><input
+                  type="checkbox"
+                  class="box-margin"
+                  value="false"
+                  onchange="filterCountries()"
+                />
+                Зависимые</label
+              >
+            </div>
+          </div>
+
+          <div class="filter-group">
+            <h3 class="filter-title">
+              Часовой пояс<img src="/assets/img/down-arrow.png" />
+            </h3>
+            <div class="filter-content" id="timezone">
+              <label
+                ><input
+                  type="checkbox"
+                  class="box-margin"
+                  value="UTC-12:00"
+                  onchange="filterCountries()"
+                />
+                UTC-12</label
+              >
+              <label
+                ><input
+                  type="checkbox"
+                  class="box-margin"
+                  value="UTC-06:00"
+                  onchange="filterCountries()"
+                />
+                UTC-6</label
+              >
+              <label
+                ><input
+                  type="checkbox"
+                  class="box-margin"
+                  value="UTC+00:00"
+                  onchange="filterCountries()"
+                />
+                UTC+0</label
+              >
+              <label
+                ><input
+                  type="checkbox"
+                  class="box-margin"
+                  value="UTC+03:00"
+                  onchange="filterCountries()"
+                />
+                UTC+3</label
+              >
+              <label
+                ><input
+                  type="checkbox"
+                  class="box-margin"
+                  value="UTC+09:00"
+                  onchange="filterCountries()"
+                />
+                UTC+9</label
+              >
+            </div>
+          </div>
+
+          <div class="filter-group filter-group-toggle">
+            <h3 class="filter-title">Членство в ООН</h3>
+            <label class="switch">
+              <input
+                type="checkbox"
+                id="un_membership"
+                onchange="filterCountries()"
+              />
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <div class="filter-group filter-group-toggle">
+            <h3 class="filter-title">Выход к морю</h3>
+            <label class="switch">
+              <input
+                type="checkbox"
+                id="sea_access"
+                onchange="filterCountries()"
+              />
+              <span class="slider"></span>
+            </label>
+          </div>
         </div>
 
-        <div class="filter-group filter-group-toggle">
-          <h3 class="filter-title">Выход к морю</h3>
-          <label class="switch">
+        <div class="content">
+          <div class="filter-group">
             <input
-              type="checkbox"
-              id="sea_access"
-              onchange="filterCountries()"
+              type="text"
+              class="filter-group-item"
+              id="search"
+              placeholder="Поиск"
+              onkeyup="filterCountries()"
             />
-            <span class="slider"></span>
-          </label>
+          </div>
+          <div class="countries" id="countries"></div>
         </div>
-      </div>
-
-      <div class="content">
-        <div class="filter-group">
-          <input
-            type="text"
-            class="filter-group-item"
-            id="search"
-            placeholder="Поиск"
-            onkeyup="filterCountries()"
-          />
-        </div>
-        <div class="countries" id="countries"></div>
       </div>
     </div>
 

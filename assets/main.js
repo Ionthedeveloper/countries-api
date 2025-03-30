@@ -26,11 +26,6 @@ let displayCountries = (countries) => {
   const container = document.getElementById("countries");
   container.innerHTML = "";
 
-  if (countries.length === 0) {
-    container.innerHTML = "<p>Нет результатов</p>";
-    return;
-  }
-
   countries.forEach(country => {
     const countryElement = document.createElement("div");
     countryElement.classList.add("country");
@@ -83,5 +78,6 @@ let filterCountries = () => {
 
   displayCountries(filteredCountries);
 }
+
 
 fetchCountries();
