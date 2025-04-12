@@ -20,7 +20,7 @@ label {
   margin-bottom: 10px;
   padding-bottom: 5px;
 }
-#populationValue {
+#population-value {
   width: 100%;
   display: block;
   border: var(--border);
@@ -28,7 +28,7 @@ label {
   border-radius: var(--border-radius);
   max-width: 309px;
 }
-#populationRange {
+#population-range {
   accent-color: #000;
   width: 100%;
   max-width: 309px;

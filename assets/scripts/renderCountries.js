@@ -2,6 +2,7 @@ const filtersState = {
   name: "",
   languages: [],
   regions: [],
+  population: "",
 };
 
 let currentCountries = [];
@@ -16,7 +17,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   setupRegionFilter();
 
-  setupLanguageFilter();
+  initializeLanguageFilter();
+
+  setupPopulationFilter();
 });
 
 let renderCountries = () => {
@@ -89,6 +92,12 @@ async function applyFilters() {
       );
     }
 
+    if (filtersState.population > 0) {
+      currentCountries = currentCountries.filter(
+        (country) => country.population <= filtersState.population
+      );
+    }
+
     if (queries.length === 0) {
       const res = await fetch("https://restcountries.com/v3.1/all");
       currentCountries = await res.json();
@@ -99,9 +108,14 @@ async function applyFilters() {
     const results = await Promise.all(queries);
     console.log(results);
     const uniqueCountries = intersectCountries(results);
-    currentCountries = uniqueCountries;
 
-    currentCountries = results.flat();
+    currentCountries = uniqueCountries.filter(
+      (country) =>
+        !filtersState.population ||
+        country.population <= filtersState.population
+    );
+
+  
     renderCountries();
   } catch (error) {
     console.error("Ошибка применения фильтров", error);
@@ -142,7 +156,10 @@ const setupNameFilter = () => {
     clearTimeout(debounceTimer);
     debounceTimer = setTimeout(() => {
       filtersState.name = input.value.trim();
-      applyFilters();
+      clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(() => {
+        applyFilters();
+      }, 400);
     }, 400);
   });
 };
@@ -151,26 +168,42 @@ function setupRegionFilter() {
   const checkBoxes = document.querySelectorAll(
     '.region-inputs input[type="checkbox"]'
   );
+  let debounceTimer = null;
   checkBoxes.forEach((cb) => {
     cb.addEventListener("change", () => {
-      filtersState.regions = Array.from(checkBoxes)
-        .filter((cb) => cb.checked)
-        .map((cb) => cb.dataset.region.toLowerCase());
-      applyFilters();
+      clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(() => {
+        filtersState.regions = Array.from(checkBoxes)
+          .filter((cb) => cb.checked)
+          .map((cb) => cb.dataset.region.toLowerCase());
+        applyFilters();
+      }, 400);
     });
   });
 }
 
-function setupLanguageFilter() {
+function initializeLanguageFilter() {
   const checkboxes = document.querySelectorAll(
     '.language-inputs input[type="checkbox"]'
   );
-  checkboxes.forEach((cb) => {
+  for (const cb of checkboxes) {
     cb.addEventListener("change", () => {
       filtersState.languages = Array.from(checkboxes)
         .filter((cb) => cb.checked)
-        .map((cb) => cb.dataset.lang);
+        .map((cb) => cb.dataset.lang || "unknown");
       applyFilters();
     });
+  }
+}
+
+function setupPopulationFilter() {
+  const rangeInput = document.getElementById("population-range");
+  const populationValue = document.getElementById("population-value");
+
+  rangeInput.addEventListener("input", () => {
+    const value = parseInt(rangeInput.value, 10);
+    populationValue.textContent = value.toLocaleString();
+    filtersState.population = value;
+    applyFilters();
   });
 }
