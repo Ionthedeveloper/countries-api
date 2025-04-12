@@ -23,16 +23,26 @@ label {
 #populationValue {
   width: 100%;
   display: block;
-  border: #000 1px solid;
+  border: var(--border);
   padding: 12px 12px 12px 16px;
-  border-radius: 16px;
+  border-radius: var(--border-radius);
   max-width: 309px;
 }
 #populationRange {
   accent-color: #000;
   width: 100%;
   max-width: 309px;
-  margin-bottom: 25px;
+  height: 3px;
+  margin-bottom: 8px;
+  margin-top: 24px;
+}
+#square {
+  width: 100%;
+  display: block;
+  border: #000 1px solid;
+  padding: 12px 12px 12px 16px;
+  border-radius: 16px;
+  max-width: 309px;
 }
 .filter-title {
   display: flex;
@@ -69,4 +79,16 @@ label {
 .box-margin {
   margin-right: 12px;
   margin-bottom: 16px;
+}
+.range-input {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+.max-min-area {
+  width: 100%;
+  max-width: 146px;
+  padding: 12px 0px 12px 16px;
+  border: var(--border);
+  border-radius: var(--border-radius);
 }

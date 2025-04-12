@@ -1,5 +1,6 @@
 .topbar {
     position: sticky;
+    margin-bottom: 48px;
     top: 42px;
     width: 100%;
     display: flex;

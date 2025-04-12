@@ -1,5 +1,9 @@
-@import "/assets/fonts/fonts.css";
-
+@import url('variables.css');
+@import url('fonts.css');
+@import url('card.css');
+@import url('topbar.css');
+@import url('sidebar.css');
+@import url('toogleSwitch.css');
 * {
   margin: 0;
   padding: 0;
