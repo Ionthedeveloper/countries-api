@@ -15,11 +15,11 @@
             type="range"
             id="population-range"
             min="0"
-            max="1400000000"
-            step="100000"
-            value="500000000"
+            max="1438001000"
+            step="1000000"
+            value="5000000"
           />
-          <span id="population-value">1000000</span>
+          <span id="population-value">5000000</span>
         </div>
 
         <div class="filter-group">
@@ -142,31 +142,41 @@
           <h3 class="filter-title active">
             Валюта<img src="/assets/img/down-arrow.png" />
           </h3>
-          <div class="filter-content" id="currency">
-            <label
-              ><input
-                type="radio"
-                class="box-margin"
-                name="currency"
-                value="EUR"
-              />Евро</label
-            >
-            <label
-              ><input
-                type="radio"
-                class="box-margin"
-                name="currency"
-                value="USD"
-              />Доллар</label
-            >
-            <label
-              ><input
-                type="radio"
-                class="box-margin"
-                name="currency"
-                value="RUB"
-              />Рубль</label
-            >
+          <div class="filter-content">
+            <div class="currency-inputs">
+              <label
+                ><input
+                  type="checkbox"
+                  class="box-margin"
+                  name="currency"
+                  data-currency="euro"
+                />Евро</label
+              >
+              <label
+                ><input
+                  type="checkbox"
+                  class="box-margin"
+                  name="currency"
+                  data-currency="usd"
+                />Доллар</label
+              >
+              <label
+                ><input
+                  type="checkbox"
+                  class="box-margin"
+                  name="currency"
+                  data-currency="ruble"
+                />Рубль</label
+              >
+              <label
+                ><input
+                  type="checkbox"
+                  class="box-margin"
+                  name="currency"
+                  data-currency="yuan"
+                />Юань</label
+              >
+            </div>
           </div>
         </div>
 
@@ -174,15 +184,38 @@
           <h3 class="filter-title active">
             Независимость<img src="/assets/img/down-arrow.png" />
           </h3>
-          <div class="filter-content" id="independence">
-            <label
-              ><input type="checkbox" class="box-margin" value="true" />
-              Независимые</label
-            >
-            <label
-              ><input type="checkbox" class="box-margin" value="false" />
-              Зависимые</label
-            >
+          <div class="filter-content">
+            <div class="independent-inputs">
+              <label
+                ><input
+                  type="radio"
+                  class="box-margin"
+                  name="independent"
+                  data-independent="all"
+                />
+                Все</label
+              >
+              <label
+                ><input
+                  type="radio"
+                  class="box-margin"
+                  name="independent"
+                  data-independent="false"
+                  value="false"
+                />
+                Независимые</label
+              >
+              <label
+                ><input
+                  type="radio"
+                  class="box-margin"
+                  name="independent"
+                  data-independent="true"
+                  value="true"
+                />
+                Зависимые</label
+              >
+            </div>
           </div>
         </div>
 

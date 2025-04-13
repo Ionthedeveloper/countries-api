@@ -3,6 +3,7 @@ const filtersState = {
   languages: [],
   regions: [],
   population: "",
+  currencies: [],
 };
 
 let currentCountries = [];
@@ -18,6 +19,8 @@ document.addEventListener("DOMContentLoaded", async () => {
   setupRegionFilter();
 
   initializeLanguageFilter();
+
+  setupCurrencyFilters();
 
   setupPopulationFilter();
 });
@@ -98,6 +101,14 @@ async function applyFilters() {
       );
     }
 
+    for (const currency of filtersState.currencies) {
+      queries.push(
+        fetch(`https://restcountries.com/v3.1/currency/${currency}`).then((r) =>
+          r.ok ? r.json() : []
+        )
+      );
+    }
+
     if (queries.length === 0) {
       const res = await fetch("https://restcountries.com/v3.1/all");
       currentCountries = await res.json();
@@ -115,12 +126,12 @@ async function applyFilters() {
         country.population <= filtersState.population
     );
 
-  
     renderCountries();
   } catch (error) {
     console.error("Ошибка применения фильтров", error);
     renderCountries([]);
   }
+  console.log("Фильтры применены", filtersState);
 }
 
 function intersectCountries(countryLists) {
@@ -207,3 +218,18 @@ function setupPopulationFilter() {
     applyFilters();
   });
 }
+
+function setupCurrencyFilters() {
+  const checkboxes = document.querySelectorAll(
+    '.currency-inputs input[type="checkbox"]'
+  );
+  for (const cb of checkboxes) {
+    cb.addEventListener("change", () => {
+      filtersState.currencies = Array.from(checkboxes)
+        .filter((cb) => cb.checked)
+        .map((cb) => cb.dataset.currency || "unknown");
+      applyFilters();
+    });
+  }
+}
+
